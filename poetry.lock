@@ -2824,13 +2824,13 @@ test = ["vcrpy (>=1.10.3)"]
 
 [[package]]
 name = "types-protobuf"
-version = "4.24.0.20240106"
+version = "5.28.3.20241029"
 description = "Typing stubs for protobuf"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "types-protobuf-4.24.0.20240106.tar.gz", hash = "sha256:024f034f3b5e2bb2bbff55ebc4d591ed0d2280d90faceedcb148b9e714a3f3ee"},
-    {file = "types_protobuf-4.24.0.20240106-py3-none-any.whl", hash = "sha256:0612ef3156bd80567460a15ac7c109b313f6022f1fee04b4d922ab2789baab79"},
+    {file = "types-protobuf-5.28.3.20241029.tar.gz", hash = "sha256:58e6c547601102e0601e3ad95ad326f85c27cda41dc9bd8c5f29ad2f3b6c6967"},
+    {file = "types_protobuf-5.28.3.20241029-py3-none-any.whl", hash = "sha256:7536ea95a7f0a19710a5e0520dd096c985333ae49b7c5eb29e1367703096f17a"},
 ]
 
 [[package]]
@@ -2959,4 +2959,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "0f69443802c3b0af24788041d3c2a59391948e15e016ede3a76c352abaf52eca"
+content-hash = "dd6ba0d1b30205938366f807f9158711cd056d8d849b81fee88c3c6028960362"
