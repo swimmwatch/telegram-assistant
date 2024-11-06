@@ -1,3 +1,0 @@
-"""
-Unittests for post implementations.
-"""

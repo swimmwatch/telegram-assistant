@@ -26,6 +26,7 @@ Supported social networks:
 #### Explicit
 ##### `\me [type] [scope]` - output contact info about user
 ##### `\d` - download post by replied message
+##### `\audio` - download audio from replied message that contains video
 ##### `\all` - mention all members in group chat (works only in basic group chat)
 ##### `\hello` - self-promotion
 

@@ -1,15 +1,27 @@
 """
 Wrappers for gRPC clients.
 """
-from abc import ABC
-
 import grpc
 
 
-class GrpcClient(ABC):
-    def __init__(self, addr: str, grpc_stub):
+class BaseGrpcClient:
+    class Meta:
+        stub: type
+
+
+class GrpcClient(BaseGrpcClient):
+    def __init__(self, addr: str):
         self.channel = grpc.insecure_channel(addr)
-        self.stub = grpc_stub(self.channel)
+        self.stub = self.Meta.stub(self.channel)
 
     def __del__(self):
         self.channel.close()
+
+
+class AsyncGrpcClient(BaseGrpcClient):
+    def __init__(self, addr: str):
+        self.channel = grpc.aio.insecure_channel(addr)
+        self.stub = self.Meta.stub(self.channel)
+
+    async def __adel__(self):
+        await self.channel.close()

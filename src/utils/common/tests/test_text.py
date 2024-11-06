@@ -4,7 +4,7 @@ from utils.common.text import remove_hashtags
 
 
 @pytest.mark.parametrize(
-    "text,expected",
+    ("text", "expected"),
     [
         ("", ""),
         ("#", "#"),

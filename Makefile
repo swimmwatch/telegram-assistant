@@ -6,7 +6,7 @@ build-protobuf:
     --python_out=$(SRC_DIR) \
     --grpc_python_out=$(SRC_DIR) \
     --mypy_out=$(SRC_DIR) \
-    $(SRC_DIR)/protobufs/services/*/*.proto
+    $(SRC_DIR)/protobufs/*/*.proto
 
 mypy:
 	poetry run mypy $(SRC_DIR)
@@ -17,10 +17,12 @@ flake:
 black-lint:
 	poetry run black --check $(SRC_DIR)
 
-lint: flake mypy black-lint
+isort:
+	poetry run isort $(SRC_DIR)
 
-unit-test:
-	poetry run pytest $(SRC_DIR)
+format: black isort
+
+lint: flake mypy black-lint
 
 cov:
 	poetry run pytest --cov=$(SRC_DIR) $(SRC_DIR)
@@ -28,5 +30,14 @@ cov:
 black:
 	poetry run black $(SRC_DIR)
 
-develop:
-	docker compose up db redis rabbitmq -d
+dev:
+	docker compose up db redis -d
+
+down:
+	docker compose down
+
+test:
+	poetry run pytest $(SRC_DIR)
+
+makemigrations:
+	poetry run alembic revision --autogenerate --message $(message)

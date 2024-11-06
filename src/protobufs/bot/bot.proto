@@ -1,0 +1,23 @@
+syntax = "proto3";
+package bot;
+
+message SendTextRequest {
+  int64 chat_id = 1;
+  string text = 2;
+}
+
+message SendPhotoRequest {
+  int64 chat_id = 1;
+  string caption = 2;
+  string base64_img = 3;
+}
+
+message MessageResponse {
+  uint64 id = 1;
+  int64 chat_id = 2;
+}
+
+service TelegramBot {
+  rpc send_text(SendTextRequest) returns (MessageResponse);
+  rpc send_photo(SendPhotoRequest) returns (MessageResponse);
+}

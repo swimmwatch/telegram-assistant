@@ -6,48 +6,88 @@ authors = ["Dmitry Vasiliev <contact.vasiliev.dmitry@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-loguru = "^0.7.0"
+loguru = "^0.7.2"
 pytube = "^15.0.0"
-celery = "^5.3.1"
-redis = "^4.5.5"
+celery = "^5.3.6"
+redis = "^5.0.1"
 aioredis = "^2.0.1"
 dependency-injector = "^4.41.0"
 asgiref = "^3.7.2"
-grpcio-tools = "^1.54.2"
-grpcio = "^1.54.2"
+grpcio-tools = "^1.60.0"
+grpcio = "^1.60.0"
 google = "^3.0.0"
-fastapi = "^0.97.0"
-uvicorn = "^0.22.0"
-pydantic = "^1.10.9"
-SQLAlchemy = {extras = ["asyncio"], version = "^2.0.16"}
+fastapi = "^0.98.0"
+uvicorn = "^0.25.0"
+pydantic = "1.10.9"
+SQLAlchemy = {extras = ["asyncio"], version = "^2.0.25"}
 htmgem = "^0.0.2"
-Telethon = "1.28.5"
+Telethon = "1.33.1"
 qrcode = {extras = ["pil"], version = "^7.4"}
-python-telegram-bot = "20.3"
-psycopg = "^3.1.9"
+python-telegram-bot = "20.7"
+psycopg = "^3.1.17"
+emoji = "^2.10.0"
+jinja2 = "^3.1.3"
+tweepy = "^4.14.0"
+instagrapi = "^1.19.8"
+amqp = "^5.2.0"
+alembic = "^1.13.1"
+psycopg-binary = "^3.1.17"
+sqlalchemy-utils = "^0.41.2"
+python-dotenv = "^1.0.1"
+moviepy = "^1.0.3"
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.4"
-flake8 = "^6.0.0"
-pytest = "^7.3.2"
-types-redis = "^4.5.5"
-types-protobuf = "^4.23.0"
-mypy-protobuf = "^3.4.0"
+mypy = "^1.8"
+flake8 = "^7.0.0"
+pytest = "^7.4.4"
+types-redis = "^4.6.0"
+types-protobuf = "^4.24.0"
+mypy-protobuf = "^3.5.0"
 pytest-cov = "^4.1.0"
-black = "^23.3.0"
+black = "^24.10.0"
+flake8-quotes = "^3.3.2"
+flake8-isort = "^6.1.1"
+isort = "^5.13.2"
+flake8-rst-docstrings = "^0.3.0"
+flake8-string-format = "^0.3.0"
+pep8-naming = "^0.13.3"
+flake8-bandit = "^4.1.1"
+flake8-pytest-style = "^1.7.2"
+flake8-bugbear = "^24.2.6"
+pytest-alembic = "^0.10.7"
+pytest-asyncio = "^0.23.8"
+flake8-comprehensions = "^3.14.0"
+pytest-xdist = "^3.6.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
-ignore_missing_imports = "True"
+plugins = [
+  "pydantic.mypy",
+]
+ignore_missing_imports = true
+follow_imports = "silent"
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+no_implicit_reexport = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
 
 [tool.black]
 target-version = ["py310"]
-line_length = 120
+line_length = 91
 
 [tool.pytest.ini_options]
 markers = [
     "smoke",
 ]
+
+[tool.isort]
+profile = "black"
+force_single_line = "True"

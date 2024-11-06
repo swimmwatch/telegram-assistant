@@ -419,3 +419,4 @@ dmypy.json
 cython_debug/
 
 .env.prod
+.env.local

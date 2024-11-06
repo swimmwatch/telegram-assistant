@@ -1,0 +1,11 @@
+{% if not scope %}
+    {{ title }}: <br>
+    <br>
+
+    {% for _, (name, value) in data.items() %}
+    {{ '\N{BULLET}' }} {{ name }}: {{ value|safe }} <br>
+    {% endfor %}
+{% else %}
+    {% set name, value = data[scope] %}
+    {{ name }}: {{ value|safe }} <br>
+{% endif %}

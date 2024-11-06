@@ -2,9 +2,9 @@ name: Run Python linters and tests
 on:
   pull_request:
     paths:
-      - '**/*.py'
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "**/*.py"
+      - "poetry.lock"
+      - "pyproject.toml"
     branches:
       - master
       - dev
@@ -16,19 +16,23 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10"]
-        poetry-version: ["1.4.2"]
+        poetry-version: ["1.5.1"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Poetry ${{matrix.poetry-version}}
         run: pipx install poetry==${{matrix.poetry-version}}
       - name: "Setup Python ${{matrix.python-version}}"
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{matrix.python-version}}
-          cache: 'poetry'
+          cache: "poetry"
       - name: Install dependencies
         run: poetry install
+      - name: Build protobuf
+        run: make build-protobuf
+      - name: Reformat generated code
+        run: make format
       - name: Run flake8
         run: make flake
       - name: Run mypy
@@ -39,20 +43,40 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10"]
-        poetry-version: ["1.3.2"]
+        poetry-version: ["1.5.1"]
+    env:
+      DB_NAME: my_telegram_assistant
+      DB_USER: postgres
+      DB_PASSWORD: mypass
+      DB_HOST: "localhost:5555"
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: ${{env.DB_NAME}}
+          POSTGRES_USER: ${{env.DB_USER}}
+          POSTGRES_PASSWORD: ${{env.DB_PASSWORD}}
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+           - 5555:5432
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Poetry
         run: pipx install poetry
       - name: Setup Python ${{matrix.python-versions}}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{matrix.python-version}}
-          cache: 'poetry'
+          cache: "poetry"
       - name: Install dependencies
         run: poetry install
       - name: Build gRPC proto files
         run: make build-protobuf
       - name: Run pytest
-        run: make unit-test
+        run: make test

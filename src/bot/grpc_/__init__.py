@@ -1,0 +1,3 @@
+"""
+Telegram Bot gRPC service.
+"""

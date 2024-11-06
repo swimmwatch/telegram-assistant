@@ -4,14 +4,14 @@ on:
     paths:
       - "**/*.[jt]s?"
       - "web/vue-app/package.json"
-      - "web/vue-app/package-lock.json"
+      - "web/vue-app/yarn.lock"
     branches:
       - master
       - dev
 
 defaults:
   run:
-    working-directory: web/vue-app
+    working-directory: "web/vue-app"
 
 jobs:
   test:
@@ -24,16 +24,16 @@ jobs:
         node-version: ["18"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node.js ${{matrix.node-version}}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node-version}}
-          cache: 'npm'
-          cache-dependency-path: 'web/vue-app/package-lock.json'
+          cache: "yarn"
+          cache-dependency-path: "web/vue-app/yarn.lock"
       - name: Install dependencies
-        run: npm install
-      - name: Build app
+        run: yarn install
+      - name: Build application
         run: npm run build
       - name: Run tests
         run: npm run lint
